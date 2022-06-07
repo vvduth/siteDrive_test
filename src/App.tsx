@@ -5,18 +5,19 @@ import { store } from "./store/store";
 import { Container } from "react-bootstrap";
 import "./App.css";
 import Stops from "./components/Stops";
+import { Route, Routes } from "react-router-dom";
+import RoutesDetails from "./components/RoutesDetails";
 
 function App() {
   return (
     <>
       <Header />
+      <Routes>
+        <Route path='/' element={<Stops/>} />
+        <Route path='/details/:id' element= {<RoutesDetails/>} />
+      </Routes>
 
-      <main>
-        <Container>
-          <Stops />
-        </Container>
-        
-      </main>
+      
       <Footer />
     </>
   );
