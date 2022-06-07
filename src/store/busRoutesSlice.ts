@@ -23,7 +23,7 @@ export interface Routes {
 } 
 
 
-export const fetchBusRoutes = createAsyncThunk("stops/getAllStops", async (k:string) => {
+export const fetchBusRoutes = createAsyncThunk("stops/getAllBuses", async (k:string) => {
     const config = {
       headers: {
         "Content-Type": "application/graphql",
