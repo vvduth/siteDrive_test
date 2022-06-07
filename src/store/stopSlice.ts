@@ -7,7 +7,7 @@ export interface Stop {
         lat: number,
         lon: number
 }
-//const stop1: Stop = {gtfsId: "wasdasd", name:"tampere", code: 'dsads',lat:11,lon:22}
+
 export interface StopState {
     stops: {[gtfsId: string]: Stop, }
 }
@@ -23,6 +23,7 @@ const stopSlice = createSlice({
     initialState, 
     reducers:{
         receivedStops(state, action: PayloadAction<Stop[]>) {
+            state.stops = {}
             const stops = action.payload ;
             stops.forEach(stop => {
                 state.stops[stop.gtfsId] = stop ; // covert array into product object
@@ -30,5 +31,7 @@ const stopSlice = createSlice({
         }
     }
 })
+
+
 export const {receivedStops} = stopSlice.actions ;
 export default stopSlice.reducer ;

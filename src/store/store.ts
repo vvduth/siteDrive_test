@@ -6,11 +6,14 @@ import stopReducer from "./stopSlice";
 import busRoutesReducer from "./busRoutesSlice";
 
 
+const middlewares = [thunk];
+
 export const store = configureStore({
     reducer: {
       stops: stopReducer,
       buses: busRoutesReducer
-    }
+    },
+    
   })
   
   // Infer the `RootState` and `AppDispatch` types from the store itself

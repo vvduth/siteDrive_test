@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Route {
     code : string, 
@@ -31,7 +31,10 @@ const initialState: RoutesState = {
 }
 
 const routesSlice = createSlice({
-    name: "routes", initialState, reducers: {}
+    name: "routes", initialState, 
+    reducers: {
+        
+    }
 })
 
 export default routesSlice.reducer

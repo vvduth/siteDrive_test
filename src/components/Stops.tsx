@@ -41,6 +41,7 @@ const Stops = () => {
     fetchData();
   }, []);
   const stops = useAppSelector((state) => state.stops.stops);
+  // we store stops in stroe as object,m not an array
   return (
     <>
       <h3>Stops based on your search</h3>

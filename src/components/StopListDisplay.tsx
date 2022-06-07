@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { Stop } from "../store/stopSlice";
 
 const StopListDisplay = ({ stop }) => {
@@ -19,7 +19,7 @@ const StopListDisplay = ({ stop }) => {
         </Card.Title>
       </Card.Body>
 
-      
+      <Button variant="outline-warning">See Details</Button>{' '}
         
      
     </Card>
