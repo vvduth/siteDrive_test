@@ -1,46 +1,18 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useAppDispatch } from "../store/hooks";
-import { receivedStops } from "../store/stopSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { fetchStops, receivedStops } from "../store/stopSlice";
 
 const SearchBox = () => {
-  const [keyword, setKeyword] = useState("");
-
-  const config = {
-    headers: {
-      "Content-Type": "application/graphql",
-    },
-  };
-
-  const body2 = `{
-        stops(name: "${keyword}") {
-          gtfsId
-          name
-          code
-          lat
-          lon
-        }
-      }`;
-
-  const dispatch = useAppDispatch();
-  const fetchData = async () => {
-    try {
-      const response = await axios.post(
-        `https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql`,
-        body2,
-        config
-      );
-      console.log(response.data.data.stops);
-      dispatch(receivedStops(response.data.data.stops));
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const [keyword, setKeyword] = useState<string>("");
+  const allStops = useAppSelector((state)=> state.stops.stops);
+  const dispatch = useAppDispatch() ;
 
   const submitHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    fetchData();
+   
+    dispatch(fetchStops(keyword))
   };
 
   return (
