@@ -17,7 +17,7 @@ const SearchBox = () => {
   };
 
   return (
-    <Form onSubmit={submitHandler}>
+    <Form className="form" onSubmit={submitHandler}>
       <Form.Control
         type="text"
         name="q"
