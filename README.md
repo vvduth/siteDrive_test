@@ -8,7 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Run the project locally
 
-### Step 1: clone the repo
+### Step 1: clone the repo by running `git clone https://github.com/vvduth/siteDrive_test.git`
 
 ### Step 2: cd to the directory, run `npm install`
 
