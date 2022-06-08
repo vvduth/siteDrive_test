@@ -96,11 +96,11 @@ const RoutesDetails = (props) => {
                   <h3>{routes.name}</h3>
                 </ListGroup.Item>
                 {!departures && (
-                  <Button onClick={onClickHandler}>Load Data</Button>
+                  <Button onClick={onClickHandler}>Load the next bus departs</Button>
                 )}
                 {departures && (
                   <Button onClick={showNextDepartHandler}>
-                    Data Loaded, click again to View Data
+                    Data Loaded, click again to check the bus
                   </Button>
                 )}
                 <ListGroup.Item>Latitude: {routes.lat}</ListGroup.Item>
