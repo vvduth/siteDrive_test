@@ -7,6 +7,7 @@ import { fetchStops, receivedStops } from "../store/stopSlice";
 const SearchBox = () => {
   const [keyword, setKeyword] = useState<string>("");
   const allStops = useAppSelector((state)=> state.stops.stops);
+  
   const dispatch = useAppDispatch() ;
 
   const submitHandler = (e: { preventDefault: () => void }) => {

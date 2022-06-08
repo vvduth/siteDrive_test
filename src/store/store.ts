@@ -1,6 +1,7 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import stopReducer from "./stopSlice";
 import busRoutesReducer from "./busRoutesSlice";
+import departuresReducer from "./departSlice"
 
 
 
@@ -8,7 +9,8 @@ import busRoutesReducer from "./busRoutesSlice";
 export const store = configureStore({
     reducer: {
       stops: stopReducer,
-      buses: busRoutesReducer
+      buses: busRoutesReducer,
+      depart: departuresReducer
     },
     
   })

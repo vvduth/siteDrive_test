@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Stop } from "../store/stopSlice";
+
 
 const StopListDisplay = ({ stop }) => {
   return (
