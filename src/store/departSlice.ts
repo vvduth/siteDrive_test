@@ -45,7 +45,7 @@ export const fetchDepartSchedule = createAsyncThunk("stops/getDepartSchedules", 
     
   
     const body2 = `{
-        nearest(lat: ${param.lat}, lon: ${param.lon}, maxDistance: 5, filterByPlaceTypes: DEPARTURE_ROW) {
+        nearest(lat: ${param.lat}, lon: ${param.lon}, maxDistance: 200, filterByPlaceTypes: DEPARTURE_ROW) {
         edges {
           node {
             place {
