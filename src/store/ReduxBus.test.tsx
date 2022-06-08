@@ -4,17 +4,21 @@ import SearchBox from "../components/SearchBox";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
-test("reduxFetchStops", () => {
+test("testSearchButton", () => {
   // Arrange
+  const onClick = jest.fn();
   render(
     <Provider store={store}>
-      <SearchBox />
+      <SearchBox  />
     </Provider>
   );
 
   // act
+  
   const searchButton = screen.getByRole("button");
-
+    searchButton.onclick = onClick ;
+    fireEvent.click(searchButton);
   // assert
-  expect(searchButton).toBeInTheDocument();
+  
+  expect(onClick).toHaveBeenCalledTimes(1);
 });
