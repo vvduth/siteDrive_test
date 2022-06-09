@@ -18,7 +18,7 @@ export const BusStopsQuery = `{
   }
 }`;
 export interface StopState {
-  stops: { [gtfsId: string]: Stop } | null;
+  stops: {  stop:Stop } | null | {};
 }
 
 const initialState: StopState = {
@@ -74,10 +74,8 @@ const stopSlice = createSlice({
     builder.addCase(fetchStops.fulfilled, (state, action: PayloadAction<Stop[]>) => {
       state.stops = {};
       const stops = action.payload;
-      const stopArr = Object.values(stops);
-      stopArr.forEach((stop) => {
-        state.stops[stop.gtfsId] = stop; // covert array into product object
-      });
+      console.log(stops);
+      state.stops = stops ; 
     });
   },
 });

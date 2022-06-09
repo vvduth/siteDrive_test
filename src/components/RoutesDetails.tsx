@@ -16,6 +16,7 @@ export interface Param {
 const RoutesDetails = (props) => {
   let params = useParams();
   const [laterDeparture, setLaterDepartures] = useState<EdgeType>();
+  const [firstClick, setFirstClick]  = useState<boolean>(true);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const routes = useAppSelector((state) => state.buses.routes);
   const departures = useAppSelector((state) => state.depart.departures);
@@ -31,11 +32,13 @@ const RoutesDetails = (props) => {
       lon: routes.lon,
       lat: routes.lat,
     };
+    setFirstClick(false);
     dispatch(fetchDepartSchedule(param));
   };
 
   const showNextDepartHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setFirstClick(true);
     let d = new Date();
     let ev: any = new Date(d);
     let msSinceMidnight = ev - d.setHours(0, 0, 0, 0);
@@ -43,7 +46,7 @@ const RoutesDetails = (props) => {
     console.log(secondsSinceMidnight);
 
     const firstLayerFilterArray = departures.edges.filter(
-      (item) => item.node.place.stoptimes.length
+      (item) => item.node.place.stoptimes.length > 0
     );
     const secondLayerFilterArray = firstLayerFilterArray.filter(
       (item) =>
@@ -130,6 +133,13 @@ const RoutesDetails = (props) => {
                               3600
                           ))*60) +
                         " minutes"}
+                    </ListGroup.Item>
+                  </>
+                )}
+                {(!laterDeparture && departures && firstClick) &&  (
+                  <>
+                    <ListGroup.Item>
+                        Sorry today all the buses have departed.
                     </ListGroup.Item>
                   </>
                 )}

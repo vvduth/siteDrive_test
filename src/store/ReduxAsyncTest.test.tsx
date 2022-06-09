@@ -6,8 +6,6 @@ import { Stop, fetchStops } from "./stopSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import axios,{AxiosResponse} from "axios";
 
-
-
 jest.mock('axios')
 
 
