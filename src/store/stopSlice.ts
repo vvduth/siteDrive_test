@@ -11,11 +11,11 @@ export interface Stop {
 }
 
 export interface StopState {
-  stops: { [gtfsId: string]: Stop };
+  stops: { [gtfsId: string]: Stop } | null;
 }
 
 const initialState: StopState = {
-  stops: {},
+  stops: null,
 };
 
 export const fetchStops = createAsyncThunk("stops/getAllStops", async (k:string) => {

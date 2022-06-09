@@ -6,6 +6,10 @@ import SearchBox from "../components/SearchBox";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import userEvent from "@testing-library/user-event";
+import {setupWorker, graphql} from 'msw';
+import {Stop} from './stopSlice'
+
+
 
 test("testSearchButton", () => {
   // Arrange
@@ -59,6 +63,7 @@ test("testOnSubmitAfterFillingTheBox", async () => {
     expect(stopText).toBeInTheDocument() ;
     expect(form).toBeInTheDocument() ;
 })
+
 
 
 function getStopsName ( ) {
