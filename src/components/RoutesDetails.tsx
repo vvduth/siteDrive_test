@@ -61,8 +61,6 @@ const RoutesDetails = (props) => {
     console.log("secondLayerAfterSort", secondLayerFilterArray);
     setLaterDepartures(secondLayerFilterArray[0]);
     setCurrentTime(secondsSinceMidnight);
-
-    //dispatch(resetDepart);
   };
   return (
     <>

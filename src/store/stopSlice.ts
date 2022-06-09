@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { WritableDraft } from "immer/dist/internal";
 
 export interface Stop {
   gtfsId: string;

@@ -1,15 +1,11 @@
 /* eslint-disable testing-library/no-node-access */
-import React from "react";
+
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import SearchBox from "../components/SearchBox";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import userEvent from "@testing-library/user-event";
-import {setupWorker, graphql} from 'msw';
-import {Stop} from './stopSlice'
-
-
 
 test("testSearchButton", () => {
   // Arrange

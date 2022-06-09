@@ -1,13 +1,10 @@
 /* eslint-disable testing-library/no-container */
-import React from "react";
 
-import userEvent from "@testing-library/user-event";
 
-import { Stop } from "./stopSlice";
-import Stops from "../components/Stops";
+import { Stop, fetchStops } from "./stopSlice";
+
 import { configureStore } from "@reduxjs/toolkit";
 import axios,{AxiosResponse} from "axios";
-import { fetchStops } from "./stopSlice";
 
 
 
@@ -31,20 +28,13 @@ describe("Async component", () => {
             }
           }
       } 
-      const mockedResponse : AxiosResponse = {
-        data: resp,
-        status: 200, 
-        statusText: 'OK',
-        headers: {},
-        config: {}
-      }
       const stopsSpy = jest.spyOn(axios, 'post').mockResolvedValueOnce(resp);
       const store = configureStore({
         reducer: function(_state = {stop: null}, action) {
           return {stop: action.payload};
         }
       })
-      await store.dispatch(fetchStops("hel"));
+      const action = await store.dispatch(fetchStops("hel"));
 
       const body2 = `{
         stops(name: "dasda") {
