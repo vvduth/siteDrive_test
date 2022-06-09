@@ -1,82 +1,65 @@
 /* eslint-disable testing-library/no-container */
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import user from "@testing-library/user-event";
-import SearchBox from "../components/SearchBox";
-import { Provider } from "react-redux";
-import { store } from "./store";
+
 import userEvent from "@testing-library/user-event";
-import { graphql } from "msw";
-import {setupServer} from 'msw/node'
+
 import { Stop } from "./stopSlice";
-import Stops from "../components/Stops"
+import Stops from "../components/Stops";
+import { configureStore } from "@reduxjs/toolkit";
+import axios,{AxiosResponse} from "axios";
+import { fetchStops } from "./stopSlice";
 
-interface RequestBody {
-  query: string;
-}
+
+
+jest.mock('axios')
+
+
 interface Response {
-  data: {
-    data: {
+  
+    data: {data: {
       stops: Stop[];
-    };
-  };
+    };}
+  
 }
 
-const worker = setupServer(
-  graphql.mutation<Response, RequestBody>(
-    "getAllMAtchingStops",
-    (req, res, ctx) => {
-      const { query } = req.variables;
-      return res(
-        ctx.data({
+describe("Async component", () => {
+  test("ttest matching bus", async () => {
+      const resp:Response = {
           data: {
             data: {
-              stops: [],
-            },
-          },
-        })
-      );
-    }
-  )
-);
-beforeAll(()=> worker.listen());
-afterEach(()=> worker.resetHandlers())
-afterAll(()=> worker.close())
+              stops: []
+            }
+          }
+      } 
+      const mockedResponse : AxiosResponse = {
+        data: resp,
+        status: 200, 
+        statusText: 'OK',
+        headers: {},
+        config: {}
+      }
+      const stopsSpy = jest.spyOn(axios, 'post').mockResolvedValueOnce(resp);
+      const store = configureStore({
+        reducer: function(_state = {stop: null}, action) {
+          return {stop: action.payload};
+        }
+      })
+      await store.dispatch(fetchStops("hel"));
 
-test("testAsyncCode", async () => {
-  // Arrange
-  const onSubmit = jest.fn();
+      const body2 = `{
+        stops(name: "dasda") {
+          gtfsId
+          name
+          code
+          lat
+          lon
+        }
+      },{"headers": {"Content-Type": "application/graphql"}}`;
+      expect(stopsSpy).toBeCalled()
+      //expect(stopsSpy).toBeCalledWith(`https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql`, body2)
+      const state = store.getState() ;
+      console.log(state);
+      expect(state.stop).toEqual({});
 
-  const { container } = render(
-    <Provider store={store}>
-      <SearchBox />
-      <Stops />
-    </Provider>
-  );
-
-  user.type(getStopsName(), "sdsadsa");
-
-  // eslint-disable-next-line testing-library/no-container
-  // eslint-disable-next-line testing-library/no-node-access
-  // eslint-disable-next-line testing-library/no-container
-  // eslint-disable-next-line testing-library/no-node-access
-  const form = container.querySelector("form");
-  form.onsubmit = onSubmit;
-  const stopText = screen.getByRole("textbox");
-  const seacrhButton = screen.getByRole("button", {
-    name: /search/i,
   });
-
-
-  // act
-  userEvent.click(seacrhButton);
-  
-  const output = await screen.findByText("Data loaded and no matches")
-  // assert
-
-  expect(output).toBeInTheDocument() ;
 });
-
-function getStopsName ( ) {
-    return screen.getByRole('textbox');
-}

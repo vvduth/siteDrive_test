@@ -9,7 +9,15 @@ export interface Stop {
   lat: number;
   lon: number;
 }
-
+export const BusStopsQuery = `{
+  stops(name: "asdasds") {
+    gtfsId
+    name
+    code
+    lat
+    lon
+  }
+}`;
 export interface StopState {
   stops: { [gtfsId: string]: Stop } | null;
 }
@@ -41,6 +49,7 @@ export const fetchStops = createAsyncThunk("stops/getAllStops", async (k:string)
       body2,
       config
     );
+    //console.log(response.data.data.stops)
     return { ...response.data.data.stops };
   } catch (e) {
     console.error(e);
